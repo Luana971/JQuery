@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    <title>Carousel</title>
+</head>
+<body>
+    <h1>My Slider</h1>
+    <div id="slider">
+        <a href="#" class="control_next">></a>
+        <a href="#" class="control_prev"><</a>
+        <ul>
+            <li><img src="white_tiger.jpg" alt=""></li>
+            <li><img src="tiger_brooke-sabin.png" alt=""></li>
+            <li><img src="tiger_hero.jpg" alt=""></li>
+            <li><img src="0906_tiger_eyes_png-1.jpeg" alt=""></li>
+        </ul>  
+    </div>
+ 
+    <script type="text/javascript">
+
+    jQuery(document).ready(function ($) {
+
+        $(function(){
+            setInterval(function(){
+                moveRight();
+            }, 3000);
+        });
+        
+
+        var slideCount = $('#slider ul li').length;
+        var slideWidth = $('#slider ul li').width();
+        var slideHeight = $('#slider ul li').height();
+        var sliderUlWidth = slideCount * slideWidth;
+        
+        $('#slider').css({ width: slideWidth, height: slideHeight });
+        
+        $('#slider ul').css({ width: sliderUlWidth, marginLeft: - slideWidth });
+        
+        $('#slider ul li:last-child').prependTo('#slider ul');
+
+        function moveLeft() {
+            $('#slider ul').animate({
+                left: + slideWidth
+            }, 200, function () {
+                $('#slider ul li:last-child').prependTo('#slider ul');
+                $('#slider ul').css('left', '');
+            });
+        };
+
+        function moveRight() {
+            $('#slider ul').animate({
+                left: - slideWidth
+            }, 200, function () {
+                $('#slider ul li:first-child').appendTo('#slider ul');
+                $('#slider ul').css('left', '');
+            });
+        };
+
+        $('a.control_prev').click(function () {
+            moveLeft();
+        });
+
+        $('a.control_next').click(function () {
+            moveRight();
+        });
+
+    });
+    </script>
+</body>
+</html>
